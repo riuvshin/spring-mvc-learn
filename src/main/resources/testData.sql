@@ -1,0 +1,9 @@
+insert into contact (first_name, last_name, birth_date) values ('Zep', 'Brennigan', '1988-09-09');
+insert into contact (first_name, last_name, birth_date) values ('Bender', 'Rodriges', '1988-08-09');
+insert into contact (first_name, last_name, birth_date) values ('Rakkaus', 'Prophet', '1988-09-09');
+insert into contact (first_name, last_name, birth_date) values ('Lila', 'Singleye', '1988-04-06');
+insert into contact (first_name, last_name, birth_date) values ('Doctor', 'Zoildberg', '1988-05-09');
+insert into contact (first_name, last_name, birth_date) values ('Pudge', 'Chinchope', '1988-01-09');
+insert into contact (first_name, last_name, birth_date) values ('Hulk', 'Incredible', '1988-02-09');
+insert into contact (first_name, last_name, birth_date) values ('Capitan', 'America', '1988-04-09');
+insert into contact (first_name, last_name, birth_date) values ('Willy', 'Wonka', '1988-03-09');
