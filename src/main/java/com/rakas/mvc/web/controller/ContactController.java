@@ -34,5 +34,5 @@ public class ContactController {
         logger.info("No. of contacts:" + contacts.size());
         return "contacts/list";
     }
-}
-}}
+}    
+ 
