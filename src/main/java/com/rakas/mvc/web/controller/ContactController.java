@@ -18,7 +18,7 @@ import java.util.List;
  * @version $Id: 8:20 PM 8/25/13 $
  */
 
-@RequestMapping("/contacts")
+@RequestMapping("/")
 @Controller
 public class ContactController {
     final Logger logger = LoggerFactory.getLogger(ContactController.class);
@@ -29,12 +29,10 @@ public class ContactController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel){
         logger.info("Listing contacts");
-
         List<Contact> contacts = contactService.findAll();
         uiModel.addAttribute("contacts", contacts);
         logger.info("No. of contacts:" + contacts.size());
         return "contacts/list";
     }
-
-
 }
+}}
