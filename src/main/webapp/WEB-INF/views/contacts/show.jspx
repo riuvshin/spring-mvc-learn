@@ -42,6 +42,6 @@
                 <td>${contact.description}</td>
             </tr>
         </table>
-        <a href="${editContactUrl}/${contact.id}?form">${labelContactUpdate}</a>
+        <a href="${editContactUrl}/${contact.id}?editForm">${labelContactUpdate}</a>
     </div>
 </div>
