@@ -29,7 +29,7 @@
                 <c:forEach items="${contacts}" var="contact">
                     <tr>
                         <td><a href="${showContactUrl}/${contact.id}">${contact.firstName}</a></td>
-                        <td>${contact.description}</td>
+                        <td>${contact.lastName}</td>
                         <td><joda:format value="${contact.birthDate}" pattern="yyyy-MM-dd"/></td>
                     </tr>
                 </c:forEach>
