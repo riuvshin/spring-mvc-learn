@@ -26,13 +26,6 @@ public class Contact implements Serializable {
     public Contact() {
     }
 
-    public Contact(String firstName, String lastName, String role, DateTime birthDate) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setDescription(role);
-        setBirthDate(birthDate);
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -78,7 +71,7 @@ public class Contact implements Serializable {
     }
 
     public void setDescription(String description) {
-        this.description = getDescription();
+        this.description = description;
     }
 
 

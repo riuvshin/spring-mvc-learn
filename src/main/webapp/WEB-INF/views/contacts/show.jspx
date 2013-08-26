@@ -21,7 +21,7 @@
     <h1>${labelContacInfo}</h1>
 
     <div id="contactInfo">
-        <c:if test="${not empty contacts}">
+        <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
         <table>
