@@ -12,7 +12,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <annotation-driven/>
+    <annotation-driven validator="validator"/>
 
     <resources location="/,classpath:/META-INF/web-resources/" mapping="/resources/**"/>
 
@@ -47,4 +47,8 @@
     <beans:bean class="org.springframework.ui.context.support.ResourceBundleThemeSource" id="themeSource"/>
 
     <beans:bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme" p:defaultThemeName="standart"/>
+
+    <beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+           <beans:property name="validationMessageSource" ref="messageSource"/>
+    </beans:bean>
 </beans:beans>

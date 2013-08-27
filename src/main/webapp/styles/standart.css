@@ -137,7 +137,7 @@ body {
 	float:left;
 }
 
-#footer a:link {color: #7db223;}
+#footer a:link {color: #16a085;}
 
 .quicklinks {
 	clear:both; 
@@ -193,7 +193,7 @@ a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;}
 
 h1,h2,h3 {
 	font-family: Helvetica, sans-serif;
-	color: #7db223;
+	color: #16a085;
 }
 
 h1 {
@@ -243,7 +243,7 @@ tr:nth-child(even) {
 }
 
 a:link {
-	color: #7db223;
+	color: #16a085;
 }
 
 a:hover {
@@ -251,11 +251,11 @@ a:hover {
 }
 
 a:active {
-	color: #7db223;
+	color: #16a085;
 }
 
 a:visited {
-	color: #7db223;
+	color: #16a085;
 }
 
 li {
