@@ -1,7 +1,9 @@
 package com.rakas.mvc.web.controller;
 
+import com.google.common.collect.Lists;
 import com.rakas.mvc.domain.Contact;
 import com.rakas.mvc.service.ContactService;
+import com.rakas.mvc.web.form.ContactGrid;
 import com.rakas.mvc.web.form.Message;
 import com.rakas.mvc.web.util.UrlUtil;
 
@@ -9,12 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,11 +97,49 @@ public class ContactController {
     }
 
     @RequestMapping(params = "createNewContact", method = RequestMethod.GET)
-    public String createForm(Model uiModel){
+    public String createForm(Model uiModel) {
         Contact contact = new Contact();
         uiModel.addAttribute("contact", contact);
         return "contacts/create";
     }
 
-}    
- 
+    @RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ContactGrid listGrid(@RequestParam(value = "page", required = false) Integer page,
+                                @RequestParam(value = "rows", required = false) Integer rows,
+                                @RequestParam(value = "sidx", required = false) String sortBy,
+                                @RequestParam(value = "sord", required = false) String order) {
+
+        logger.info("Listing contacts for grid with page: {}, rows: {}", page, rows);
+        logger.info("Listing contacts for grid with sort: {}, order: {}", sortBy, order);
+
+        Sort sort = null;
+        String orderBy = sortBy;
+        if (orderBy != null && orderBy.equals("birthDateString")) {
+            orderBy = "birthDate";
+        }
+        if (orderBy != null && order != null) {
+            if (order.equals("desc")) {
+                sort = new Sort(Sort.Direction.DESC, orderBy);
+            } else {
+                sort = new Sort(Sort.Direction.ASC, orderBy);
+            }
+        }
+
+        PageRequest pageRequest = null;
+
+        if(sort != null) {
+            pageRequest = new PageRequest(page - 1, rows, sort);
+        } else {
+            pageRequest = new PageRequest(page - 1,rows);
+        }
+        Page<Contact> contactPage = contactService.findAllByPage(pageRequest);
+
+        ContactGrid contactGrid = new ContactGrid();
+        contactGrid.setCurrentPage(contactPage.getNumber() + 1);
+        contactGrid.setTotalPages(contactPage.getTotalPages());
+        contactGrid.setTotalRecords(contactPage.getTotalElements());
+        contactGrid.setContactData(Lists.newArrayList(contactPage.iterator()));
+        return contactGrid;
+    }
+}
