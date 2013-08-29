@@ -14,4 +14,7 @@
     <definition extends="default" name="contacts/create">
         <put-attribute name="body" value="/WEB-INF/views/contacts/edit.jspx"/>
     </definition>
+    <definition extends="default" name="contacts/delete">
+        <put-attribute name="body" value="/WEB-INF/views/contacts/delete.jspx"/>
+    </definition>
 </tiles-definitions>

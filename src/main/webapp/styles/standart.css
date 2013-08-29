@@ -412,3 +412,8 @@ fieldset th {
 	height: 11px;
 	width: 16px;
 }
+
+#editContact {
+    display:inline-block;
+    margin-right:30px;
+}

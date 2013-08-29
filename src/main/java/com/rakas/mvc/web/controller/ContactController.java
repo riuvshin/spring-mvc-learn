@@ -142,4 +142,17 @@ public class ContactController {
         contactGrid.setContactData(Lists.newArrayList(contactPage.iterator()));
         return contactGrid;
     }
+
+    @RequestMapping(value = "/{id}", params = "deleteContact", method = RequestMethod.GET)
+    public String deleteContact(@PathVariable("id") Long id, Model uiModel, RedirectAttributes redirectAttributes, Locale locale) {
+        logger.info("Deleting contact");
+        Contact c = contactService.findById(id);
+        uiModel.addAttribute("contact", c);
+        contactService.delete(c);
+        logger.info("Contact " + c.getFirstName() + " " + c.getLastName() + " successfully deleted!");
+        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
+                .getMessage("contact_delete_success_1", new Object[]{}, locale)));
+        return "redirect:/contacts";
+    }
+
 }

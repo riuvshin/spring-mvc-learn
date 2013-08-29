@@ -20,4 +20,6 @@ public interface ContactService {
     public Contact save(Contact contact);
 
     public Page<Contact> findAllByPage(Pageable pageable);
+
+    public void delete(Contact contact);
 }

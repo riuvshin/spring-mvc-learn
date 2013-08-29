@@ -46,4 +46,9 @@ public class ContactServiceImpl implements ContactService {
     public Page<Contact> findAllByPage(Pageable pageable) {
         return contactRepository.findAll(pageable);
     }
+
+    @Override
+    public void delete(Contact contact) {
+        contactRepository.delete(contact);
+    }
 }

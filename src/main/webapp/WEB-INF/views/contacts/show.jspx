@@ -14,6 +14,7 @@
     <spring:message code="label_contact_birth_date" var="labelContactBDay"/>
     <spring:message code="label_contact_description" var="labelContactDescription"/>
     <spring:message code="label_contact_update" var="labelContactUpdate"/>
+    <spring:message code="label_contact_delete" var="labelContactDelete"/>
     <spring:message code="date_format_pattern" var="dateFormatPattern"/>
 
     <spring:url value="/contacts" var="editContactUrl"/>
@@ -42,6 +43,6 @@
                 <td>${contact.description}</td>
             </tr>
         </table>
-        <a href="${editContactUrl}/${contact.id}?editForm">${labelContactUpdate}</a>
+        <a id="editContact" href="${editContactUrl}/${contact.id}?editForm">${labelContactUpdate}</a> <a type="submit" href="${editContactUrl}/${contact.id}?deleteContact">${labelContactDelete}</a>
     </div>
 </div>
