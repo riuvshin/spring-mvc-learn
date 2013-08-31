@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:c="http://java.sun.com/jsp/jstl/core"
-     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:sec="http://www.springframework.org/security/tags"
      xmlns:joda="http://www.joda.org/joda/time/tags"
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
 
@@ -50,6 +50,8 @@
                 <td><img src="${contactPhotoUrl}/${contact.id}"></img></td>
             </tr>
         </table>
+        <sec:authorize access="isAuthenticated()">
         <a id="editContact" href="${editContactUrl}/${contact.id}?editForm">${labelContactUpdate}</a> <a type="submit" href="${editContactUrl}/${contact.id}?deleteContact">${labelContactDelete}</a>
+        </sec:authorize>
     </div>
 </div>

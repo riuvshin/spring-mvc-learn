@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +62,7 @@ public class ContactController {
         return "contacts/show";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", params = "editForm", method = RequestMethod.POST)
     public String update(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
                          RedirectAttributes redirectAttributes, Locale locale) {
@@ -77,12 +79,14 @@ public class ContactController {
         return "redirect:/contacts/" + UrlUtil.encodeUrlPathSegment(contact.getId().toString(), httpServletRequest);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", params = "editForm", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("contact", contactService.findById(id));
         return "contacts/update";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(params = "createNewContact", method = RequestMethod.POST)
     public String create(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
                          RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value = "file", required = false) Part file) {
@@ -129,6 +133,7 @@ public class ContactController {
         return contact.getPhoto();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(params = "createNewContact", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
         Contact contact = new Contact();
@@ -176,6 +181,7 @@ public class ContactController {
         return contactGrid;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", params = "deleteContact", method = RequestMethod.GET)
     public String deleteContact(@PathVariable("id") Long id, Model uiModel, RedirectAttributes redirectAttributes, Locale locale) {
         logger.info("Deleting contact");
@@ -187,5 +193,4 @@ public class ContactController {
                 .getMessage("contact_delete_success_1", new Object[]{}, locale)));
         return "redirect:/contacts";
     }
-
 }
