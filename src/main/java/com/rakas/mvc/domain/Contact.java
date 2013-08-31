@@ -98,8 +98,8 @@ public class Contact implements Serializable {
         return photo;
     }
 
-    public void setPhoto(byte[] bytes){
-        this.photo = bytes;
+    public void setPhoto(byte[] photo){
+        this.photo = photo;
     }
 
     @Transient
