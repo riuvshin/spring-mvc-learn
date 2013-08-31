@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.springapp</groupId>
-    <artifactId>springweb</artifactId>
+    <artifactId>contacts</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>springweb</name>
+    <name>contacts</name>
 
     <properties>
         <java-version>1.6</java-version>
@@ -264,7 +264,7 @@
     </dependencies>
 
     <build>
-        <finalName>springweb</finalName>
+        <finalName>contacts</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

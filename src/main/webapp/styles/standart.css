@@ -415,5 +415,9 @@ fieldset th {
 
 #editContact {
     display:inline-block;
-    margin-right:30px;
+    margin-right:10px;
+}
+
+span {
+    color: #555555
 }

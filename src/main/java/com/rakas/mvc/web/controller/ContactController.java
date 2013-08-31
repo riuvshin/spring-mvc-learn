@@ -190,7 +190,7 @@ public class ContactController {
         contactService.delete(c);
         logger.info("Contact " + c.getFirstName() + " " + c.getLastName() + " successfully deleted!");
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
-                .getMessage("contact_delete_success_1", new Object[]{}, locale)));
+                .getMessage("contact_delete_success", new Object[]{}, locale)));
         return "redirect:/contacts";
     }
 }

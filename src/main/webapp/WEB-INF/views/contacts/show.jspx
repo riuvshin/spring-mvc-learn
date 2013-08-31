@@ -51,7 +51,8 @@
             </tr>
         </table>
         <sec:authorize access="isAuthenticated()">
-        <a id="editContact" href="${editContactUrl}/${contact.id}?editForm">${labelContactUpdate}</a> <a type="submit" href="${editContactUrl}/${contact.id}?deleteContact">${labelContactDelete}</a>
+            <a id="editContact"  href="${editContactUrl}/${contact.id}?editForm" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">${labelContactUpdate}</span></a>
+            <a href="${editContactUrl}/${contact.id}?deleteContact" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" onClick="return confirm('Delete this user: ${contact.firstName} ${contact.lastName}');"><span class="ui-button-text">${labelContactDelete} </span></a>
         </sec:authorize>
     </div>
 </div>
