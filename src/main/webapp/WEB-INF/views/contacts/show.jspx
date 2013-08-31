@@ -8,6 +8,24 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
+    <script>
+        function showDiv() {
+            $("#deleteUser").dialog({
+                resizable: false,
+                height: 140,
+                modal: true,
+                buttons: {
+                    "Delete user": function () {
+                        window.location.href = '/contacts/${editContactUrl}/${contact.id}?deleteContact';
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+    </script>
+
     <spring:message code="label_contact_info" var="labelContacInfo"/>
     <spring:message code="label_contact_first_name" var="labelContactFirstNane"/>
     <spring:message code="label_contact_last_name" var="labelContactLastNane"/>
@@ -19,10 +37,13 @@
 
     <spring:message code="label_contact_photo" var="labelContactPhoto"/>
     <spring:url value="/contacts/photo" var="contactPhotoUrl"/>
-
     <spring:url value="/contacts" var="editContactUrl"/>
 
     <h1>${labelContacInfo}</h1>
+
+    <div id="deleteUser"  style="display:none;" title="Delete user?">
+       Delete this user: ${contact.firstName} ${contact.lastName} ?
+    </div>
 
     <div id="contactInfo">
         <c:if test="${not empty message}">
@@ -51,8 +72,14 @@
             </tr>
         </table>
         <sec:authorize access="isAuthenticated()">
-            <a id="editContact"  href="${editContactUrl}/${contact.id}?editForm" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">${labelContactUpdate}</span></a>
-            <a href="${editContactUrl}/${contact.id}?deleteContact" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" onClick="return confirm('Delete this user: ${contact.firstName} ${contact.lastName}');"><span class="ui-button-text">${labelContactDelete} </span></a>
+            <a id="editContact" href="${editContactUrl}/${contact.id}?editForm"
+               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span
+                    class="ui-button-text">${labelContactUpdate}</span></a>
+            <!--a href="${editContactUrl}/${contact.id}?deleteContact"
+               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"
+               onClick="return confirm('');"><span
+                    class="ui-button-text">${labelContactDelete} </span></a-->
+            <input id="deleteContact" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" aria-disabled="false" type="button" name="answer" value="${labelContactDelete}" onclick="showDiv()" />
         </sec:authorize>
     </div>
 </div>
