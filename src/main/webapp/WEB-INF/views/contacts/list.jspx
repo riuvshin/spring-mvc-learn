@@ -21,9 +21,9 @@
               mtype: 'GET',
               colNames:['${labelContactListFNane}', '${labelContactListLNane}', '${labelContactListBDay}'],
               colModel: [
-                  {name:'firstName', index:'firstName', width:150},
-                  {name:'lastName', index:'lastName', width:100},
-                  {name:'birthDateString', index:'birthDate', width:100}],
+                  {name:'firstName', index:'firstName', width:200},
+                  {name:'lastName', index:'lastName', width:200},
+                  {name:'birthDateString', index:'birthDate', width:200}],
               jsonReader: {
                   root:"contactData",
                   page:"currentPage",
@@ -40,7 +40,7 @@
               viewrecords:true,
               gridview: true,
               height: 250,
-              width: 500,
+              width: 600,
               caption:'${labelContactList}',
               onSelectRow:function(id){
                   document.location.href='${showContactUrl}/'+id;

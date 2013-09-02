@@ -7,6 +7,17 @@
 
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="label_contact_info" var="labelContacInfo"/>
+    <spring:message code="label_contact_first_name" var="labelContactFirstNane"/>
+    <spring:message code="label_contact_last_name" var="labelContactLastNane"/>
+    <spring:message code="label_contact_birth_date" var="labelContactBDay"/>
+    <spring:message code="label_contact_description" var="labelContactDescription"/>
+    <spring:message code="label_contact_update" var="labelContactUpdate"/>
+    <spring:message code="label_contact_delete" var="labelContactDelete"/>
+    <spring:message code="date_format_pattern" var="dateFormatPattern"/>
+    <spring:message code="label_contact_photo" var="labelContactPhoto"/>
+    <spring:url value="/contacts/photo" var="contactPhotoUrl"/>
+    <spring:url value="/contacts" var="editContactUrl"/>
 
     <script>
         function showDiv() {
@@ -16,7 +27,7 @@
                 modal: true,
                 buttons: {
                     "Delete user": function () {
-                        window.location.href = '/contacts/${editContactUrl}/${contact.id}?deleteContact';
+                        window.location.href = '${editContactUrl}/${contact.id}?deleteContact';
                     },
                     Cancel: function () {
                         $(this).dialog("close");
@@ -26,18 +37,7 @@
         }
     </script>
 
-    <spring:message code="label_contact_info" var="labelContacInfo"/>
-    <spring:message code="label_contact_first_name" var="labelContactFirstNane"/>
-    <spring:message code="label_contact_last_name" var="labelContactLastNane"/>
-    <spring:message code="label_contact_birth_date" var="labelContactBDay"/>
-    <spring:message code="label_contact_description" var="labelContactDescription"/>
-    <spring:message code="label_contact_update" var="labelContactUpdate"/>
-    <spring:message code="label_contact_delete" var="labelContactDelete"/>
-    <spring:message code="date_format_pattern" var="dateFormatPattern"/>
 
-    <spring:message code="label_contact_photo" var="labelContactPhoto"/>
-    <spring:url value="/contacts/photo" var="contactPhotoUrl"/>
-    <spring:url value="/contacts" var="editContactUrl"/>
 
     <h1>${labelContacInfo}</h1>
 

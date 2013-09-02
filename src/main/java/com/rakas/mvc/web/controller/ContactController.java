@@ -65,7 +65,7 @@ public class ContactController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", params = "editForm", method = RequestMethod.POST)
     public String update(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
-                         RedirectAttributes redirectAttributes, Locale locale) {
+                         RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value = "file", required = false) Part file) {
         logger.info("Updating contact");
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("message", new Message("error", messageSource.getMessage("contact_save_fail", new Object[]{}, locale)));
@@ -75,6 +75,23 @@ public class ContactController {
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
                 .getMessage("contact_save_success", new Object[]{}, locale)));
+
+        if(file != null) {
+            logger.info("File name: " + file.getName());
+            logger.info("File size: " + file.getSize());
+            logger.info("File content type: " + file.getContentType());
+            byte[] fileContent = null;
+            try{
+                InputStream inputStream = file.getInputStream();
+                if(inputStream == null) logger.info("File inputStream is null");
+                fileContent = IOUtils.toByteArray(inputStream);
+                contact.setPhoto(fileContent);
+            } catch (IOException e) {
+                logger.error("Error during saving photo");
+            }
+            contact.setPhoto(fileContent);
+        }
+
         contactService.save(contact);
         return "redirect:/contacts/" + UrlUtil.encodeUrlPathSegment(contact.getId().toString(), httpServletRequest);
     }

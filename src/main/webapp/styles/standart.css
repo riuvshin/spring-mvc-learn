@@ -432,5 +432,12 @@ span {
     background-position: 10px center;
     text-align: center;
     padding-top: 10px;
+}
 
+#login{
+    width: 220px;
+}
+
+#inputLogin{
+    width: 150px;
 }
