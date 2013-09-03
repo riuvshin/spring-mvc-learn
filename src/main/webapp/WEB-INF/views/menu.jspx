@@ -25,11 +25,11 @@
                     <caption align="left">Login:</caption>
                     <tr>
                         <td>User Name:</td>
-                        <td><input id="inputLogin" type="text" name="j_username"/></td>
+                        <td><input id="inputLogin" type="text" name="j_username" placeholder="default: admin"/></td>
                     </tr>
                     <tr>
                         <td>password:</td>
-                        <td><input id="inputLogin" type="password" name="j_password"/></td>
+                        <td><input id="inputLogin" type="password" name="j_password" placeholder="default: admin"/></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><input name="submit" type="submit" value="Login"/></td>
