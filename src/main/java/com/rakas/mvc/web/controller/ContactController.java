@@ -20,10 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,35 +65,10 @@ public class ContactController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", params = "editForm", method = RequestMethod.POST)
     public String update(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
-                         RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value = "file", required = false) Part file) {
-        logger.info("Updating contact");
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("message", new Message("error", messageSource.getMessage("contact_save_fail", new Object[]{}, locale)));
-            uiModel.addAttribute("contact", contact);
-            return "contacts/update";
-        }
-        uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
-                .getMessage("contact_save_success", new Object[]{}, locale)));
-
-        if(file != null) {
-            logger.info("File name: " + file.getName());
-            logger.info("File size: " + file.getSize());
-            logger.info("File content type: " + file.getContentType());
-            byte[] fileContent = null;
-            try{
-                InputStream inputStream = file.getInputStream();
-                if(inputStream == null) logger.info("File inputStream is null");
-                fileContent = IOUtils.toByteArray(inputStream);
-                contact.setPhoto(fileContent);
-            } catch (IOException e) {
-                logger.error("Error during saving photo");
-            }
-            contact.setPhoto(fileContent);
-        }
-
-        contactService.save(contact);
-        return "redirect:/contacts/" + UrlUtil.encodeUrlPathSegment(contact.getId().toString(), httpServletRequest);
+                         RedirectAttributes redirectAttributes, Locale locale,
+                         @RequestParam(value = "file", required = false) CommonsMultipartFile file) {
+        logger.info("Updating contact " + contact.getFirstName());
+        return manageContactData(contact, bindingResult, uiModel, httpServletRequest, redirectAttributes, locale, file);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -106,43 +81,18 @@ public class ContactController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(params = "createNewContact", method = RequestMethod.POST)
     public String create(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
-                         RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value = "file", required = false) Part file) {
-        logger.info("Creating new contact" + contact.getFirstName());
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("message", new Message("error", messageSource.getMessage("contact_save_fail", new Object[]{}, locale)));
-            uiModel.addAttribute("contact", contact);
-            return "contacts/update";
-        }
-        uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
-                .getMessage("contact_save_success", new Object[]{}, locale)));
-        logger.info("Contact id: " + contact.getId());
-
-        if(file != null) {
-            logger.info("File name: " + file.getName());
-            logger.info("File size: " + file.getSize());
-            logger.info("File content type: " + file.getContentType());
-            byte[] fileContent = null;
-            try{
-                InputStream inputStream = file.getInputStream();
-                if(inputStream == null) logger.info("File inputStream is null");
-                  fileContent = IOUtils.toByteArray(inputStream);
-                  contact.setPhoto(fileContent);
-            } catch (IOException e) {
-                logger.error("Error during saving photo");
-            }
-            contact.setPhoto(fileContent);
-        }
-        contactService.save(contact);
-        return "redirect:/contacts/" + UrlUtil.encodeUrlPathSegment(contact.getId().toString(), httpServletRequest);
+                         RedirectAttributes redirectAttributes, Locale locale,
+                         @RequestParam(value = "file", required = false) CommonsMultipartFile file) {
+        logger.info("Creating new contact " + contact.getFirstName());
+        return manageContactData(contact, bindingResult, uiModel, httpServletRequest, redirectAttributes, locale, file);
     }
 
     @RequestMapping(value = "/photo/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] downloadPhoto(@PathVariable("id") Long id){
+    public byte[] downloadPhoto(@PathVariable("id") Long id) {
         Contact contact = contactService.findById(id);
 
-        if(contact.getPhoto() != null) {
+        if (contact.getPhoto() != null) {
             logger.info("Downloading photo for id: {} with size: {}", contact.getId(), contact.getPhoto().length);
         } else {
             logger.error("contact " + contact.getFirstName() + " photo = null");
@@ -183,10 +133,10 @@ public class ContactController {
 
         PageRequest pageRequest = null;
 
-        if(sort != null) {
+        if (sort != null) {
             pageRequest = new PageRequest(page - 1, rows, sort);
         } else {
-            pageRequest = new PageRequest(page - 1,rows);
+            pageRequest = new PageRequest(page - 1, rows);
         }
         Page<Contact> contactPage = contactService.findAllByPage(pageRequest);
 
@@ -209,5 +159,36 @@ public class ContactController {
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
                 .getMessage("contact_delete_success", new Object[]{}, locale)));
         return "redirect:/contacts";
+    }
+
+    private String manageContactData(Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
+                                     RedirectAttributes redirectAttributes, Locale locale, CommonsMultipartFile file) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("message", new Message("error", messageSource.getMessage("contact_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("contact", contact);
+            return "contacts/update";
+        }
+        uiModel.asMap().clear();
+        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource
+                .getMessage("contact_save_success", new Object[]{}, locale)));
+
+        if (file != null) {
+            logger.info("File name: " + file.getName());
+            logger.info("File size: " + file.getSize());
+            logger.info("File content type: " + file.getContentType());
+            byte[] fileContent = null;
+            try {
+                InputStream inputStream = file.getInputStream();
+                if (inputStream == null) logger.info("File inputStream is null");
+                fileContent = IOUtils.toByteArray(inputStream);
+                contact.setPhoto(fileContent);
+            } catch (IOException e) {
+                logger.error("Error during saving photo");
+            }
+            contact.setPhoto(fileContent);
+        }
+
+        contactService.save(contact);
+        return "redirect:/contacts/" + UrlUtil.encodeUrlPathSegment(contact.getId().toString(), httpServletRequest);
     }
 }
