@@ -112,7 +112,7 @@ public class Contact implements Serializable {
     }
 
     public String toString() {
-        return "Contact id: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", birth day: " + birthDate + ", description: " +
+      return "Contact id: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", birth day: " + birthDate + ", description: " +
                description;
     }
 }
