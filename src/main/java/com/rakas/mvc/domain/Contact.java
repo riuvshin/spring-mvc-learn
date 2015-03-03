@@ -42,7 +42,7 @@ public class Contact implements Serializable {
     @Version
     @Column(name = "VERSION")
     public int getVersion() {
-        return this.version;
+      return this.version;
     }
 
     public void setVersion(int version) {
