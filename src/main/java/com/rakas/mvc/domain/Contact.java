@@ -86,6 +86,7 @@ public class Contact implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public DateTime getBirthDate() {
         return this.birthDate;
+
     }
 
     public void setBirthDate(DateTime birthDate) {
