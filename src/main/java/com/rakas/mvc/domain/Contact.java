@@ -42,7 +42,7 @@ public class Contact implements Serializable {
     @Version
     @Column(name = "VERSION")
     public int getVersion() {
-        return this.version;
+      return this.version;
     }
 
     public void setVersion(int version) {
@@ -113,7 +113,7 @@ public class Contact implements Serializable {
     }
 
     public String toString() {
-        return "Contact id: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", birth day: " + birthDate + ", description: " +
+      return "Contact id: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", birth day: " + birthDate + ", description: " +
                description;
     }
 }
