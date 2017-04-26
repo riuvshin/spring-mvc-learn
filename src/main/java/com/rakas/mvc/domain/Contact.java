@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * @author <a href="mailto:riuvshin@codenvy.com">Roman Iuvshin</a>
- * @version $Id: 1:02 AM 8/20/13 $
+ * @version $Id: 1:02 AM 8/20/13 $ :)
  */
 @Entity
 @Table(name = "contact")

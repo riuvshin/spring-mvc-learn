@@ -4,9 +4,14 @@
     <groupId>com.springapp</groupId>
     <artifactId>contacts</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>5.15.0-SNAPSHOT</version>
     <name>contacts</name>
-
+    <scm>
+        <connection>scm:git:git@github.com:riuvshin/spring-mvc-learn.git</connection>
+        <developerConnection>scm:git:git@github.com:riuvshin/spring-mvc-learn.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/riuvshin/spring-mvc-learn</url>
+    </scm>
     <properties>
         <java-version>1.6</java-version>
         <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
